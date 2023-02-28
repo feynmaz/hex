@@ -6,25 +6,62 @@ import (
 
 // Adapter is an implementation of API interface port
 type Adapter struct {
+	db         ports.DB
 	arithmetic ports.Arithmetic
 }
 
-func NewAdapter(arithmetic ports.Arithmetic) *Adapter {
-	return &Adapter{arithmetic: arithmetic}
+func NewAdapter(db ports.DB, arithmetic ports.Arithmetic) *Adapter {
+	return &Adapter{db: db, arithmetic: arithmetic}
 }
 
-func (api Adapter) GetAddition(a, b int32) (int32, error) {
-	return api.arithmetic.Addition(a, b)
+func (apia Adapter) GetAddition(a, b int32) (int32, error) {
+	answer, err := apia.arithmetic.Addition(a, b)
+	if err != nil {
+		return 0, err
+	}
+
+	if err := apia.db.AddToHistory(answer, "addition"); err != nil {
+		return 0, err
+	}
+
+	return answer, nil
 }
 
-func (api Adapter) GetSubtraction(a, b int32) (int32, error) {
-	return api.arithmetic.Subtraction(a, b)
+func (apia Adapter) GetSubtraction(a, b int32) (int32, error) {
+	answer, err := apia.arithmetic.Subtraction(a, b)
+	if err != nil {
+		return 0, err
+	}
+
+	if err := apia.db.AddToHistory(answer, "subtraction"); err != nil {
+		return 0, err
+	}
+
+	return answer, nil
 }
 
-func (api Adapter) GetMultiplication(a, b int32) (int32, error) {
-	return api.arithmetic.Multiplication(a, b)
+func (apia Adapter) GetMultiplication(a, b int32) (int32, error) {
+	answer, err := apia.arithmetic.Multiplication(a, b)
+	if err != nil {
+		return 0, err
+	}
+
+	if err := apia.db.AddToHistory(answer, "multiplication"); err != nil {
+		return 0, err
+	}
+
+	return answer, nil
 }
 
-func (api Adapter) GetDivision(a, b int32) (int32, error) {
-	return api.arithmetic.Division(a, b)
+func (apia Adapter) GetDivision(a, b int32) (int32, error) {
+	answer, err := apia.arithmetic.Division(a, b)
+	if err != nil {
+		return 0, err
+	}
+
+	if err := apia.db.AddToHistory(answer, "division"); err != nil {
+		return 0, err
+	}
+
+	return answer, nil
 }

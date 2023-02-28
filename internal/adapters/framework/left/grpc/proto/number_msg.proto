@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package pb;
+
+// relative path to directory
+option go_package = "./pb";
+
+message Answer {
+    int32 value = 1;
+}
+
+message OperationParameters {
+    uint32 a = 1;
+    uint32 b = 2;
+}

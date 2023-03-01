@@ -1,6 +1,6 @@
 version: "3"
 
-service:
+services:
   db:
     image: mysql
     command: --default-authentication-plugin=mysql_native_password
@@ -16,7 +16,13 @@ service:
   grpc:
     build: .
     environment:
-      DB_DRIVER: ""
-      DSN: ""
+      DB_DRIVER: "mysql"
+      DSN: "root:Admin123@tcp(db:3306)/hex_test"
+      MYSQL_HOST: "db"
+      MYSQL_PASSWORD: "Admin123"
+      MYSQL_USER: "root"
+      MYSQL_DB: "hex_test"
+      MYSQL_PORT: "3306"
     depends_on:
       - db
+    command: ["go", "test", "-v", "./..."]

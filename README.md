@@ -1,3 +1,2 @@
-# Learn Hexagonal Architecture
-
-Guide by [Kantan Coding](https://youtu.be/MpFog2kZsHk)
+# Hex
+Learn Hexagonal Architecture in go. Guide by [Kantan Coding](https://youtu.be/MpFog2kZsHk)
